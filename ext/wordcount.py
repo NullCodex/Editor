@@ -1,5 +1,5 @@
 from PyQt4 import QtGui, QtCore
-from PyQt4.QtCore import Qt
+from PyQt4.QtCore import Qt, QString, QRegExp
 
 class WordCount(QtGui.QDialog):
     def __init__(self,parent = None):
@@ -64,15 +64,17 @@ class WordCount(QtGui.QDialog):
 
         # Get the text currently in selection
         text = self.parent.text.textCursor().selectedText()
+        # This can be really slow for large documents
+        wordCount = text.split(QRegExp("(\\s|\\n|\\r)+"), QString.SkipEmptyParts).count();
 
         # Split the text to get the word count
-        words = str(len(text.split()))
+        words = str(len(text.split(' ', QString.SkipEmptyParts )))
 
         # And just get the length of the text for the symbols
         # count
         symbols = str(len(text))
 
-        self.currentWords.setText(words)
+        self.currentWords.setText(str(wordCount))
         self.currentSymbols.setText(symbols)
 
         # For the total count, same thing as above but for the
@@ -80,8 +82,8 @@ class WordCount(QtGui.QDialog):
         
         text = self.parent.text.toPlainText()
 
-        words = str(len(text.split()))
+        wordCount = text.split(QRegExp("(\\s|\\n|\\r)+"), QString.SkipEmptyParts).count();
         symbols = str(len(text))
 
-        self.totalWords.setText(words)
+        self.totalWords.setText(str(wordCount))
         self.totalSymbols.setText(symbols)

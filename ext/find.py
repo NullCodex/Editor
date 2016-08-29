@@ -10,7 +10,7 @@ class Find(QtGui.QDialog):
 
         self.parent = parent
 
-        self.lastStart = 0
+        self.lastStart = -1
 
         self.initUI()
  
@@ -73,7 +73,7 @@ class Find(QtGui.QDialog):
 
             # Use normal string search to find the query from the
             # last starting position
-            self.lastStart = text.find(query,self.lastStart + 1)
+            self.lastStart = str(text).find(str(query),self.lastStart + 1)
 
             # If the find() method didn't return -1 (not found)
             if self.lastStart >= 0:
@@ -85,7 +85,7 @@ class Find(QtGui.QDialog):
             else:
 
                 # Make the next search start from the begining again
-                self.lastStart = 0
+                self.lastStart = -1
                 
                 self.parent.text.moveCursor(QtGui.QTextCursor.End)
 
@@ -105,7 +105,7 @@ class Find(QtGui.QDialog):
 
             else:
 
-                self.lastStart = 0
+                self.lastStart = -1
                 
                 # We set the cursor to the end if the search was unsuccessful
                 self.parent.text.moveCursor(QtGui.QTextCursor.End)
