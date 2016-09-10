@@ -449,7 +449,7 @@ class Main(QtGui.QMainWindow): # Create a class called Main and let it inherit f
         self.setWindowIcon(QtGui.QIcon("icons/icon.png"))
         
         color = QtGui.QColor('#66cc80')
-        style = "QWidget { background-color: %s; }" % color.name()
+        style = "QWidget { border: 1px solid %s; }" % color.name()
         self.wordBar.setStyleSheet(style)
 
        #  self.setStyleSheet("""
